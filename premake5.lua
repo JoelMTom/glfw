@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 project "GLFW"
 	kind "StaticLib"
 	language "C"
@@ -27,7 +28,7 @@ project "GLFW"
 		pic "On"
 
 		systemversion "latest"
-		
+
 		files
 		{
 			"src/x11_init.c",
@@ -65,8 +66,8 @@ project "GLFW"
 			"src/osmesa_context.c"
 		}
 
-		defines 
-		{ 
+		defines
+		{
 			"_GLFW_WIN32",
 			"_CRT_SECURE_NO_WARNINGS"
 		}
