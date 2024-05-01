@@ -1,11 +1,41 @@
----@diagnostic disable: undefined-global
-project "GLFW"
+---@diagnostic disable: undefined-global, undefined-field
+
+local projectName = path.getbasename(os.getcwd())
+
+project (projectName)
+  kind "StaticLib"
+  language "C"
+
+	targetdir ("%{wks.location}/bin/" .. Outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin-int/" .. Outputdir .. "/%{prj.name}")
+
+  files {
+    "include/**.h",
+    "src/**.h",
+    "src/**.c",
+  }
+
+  IncludedirsDep[projectName] = os.getcwd() .. "/include/"
+
+  filter "system:linux"
+    defines "_GLFW_X11"
+    defines "_GNU_SOURCE"
+
+    removefiles {
+      "src/cocoa*",
+      "src/win32*",
+      "src/wl*",
+      -- "src/cocoa_time.c",
+    }
+
+
+--[[ project "GLFW"
 	kind "StaticLib"
 	language "C"
 	staticruntime "off"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. Outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. Outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -83,4 +113,4 @@ project "GLFW"
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "on"
+		optimize "on" ]]
