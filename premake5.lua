@@ -16,6 +16,7 @@ project (projectName)
   }
 
   IncludedirsDep[projectName] = os.getcwd() .. "/include/"
+  Linklib[projectName] = projectName
 
   filter "system:linux"
     defines "_GLFW_X11"
